@@ -127,7 +127,9 @@ loop(MochiReq, LoopOpts) ->
                     webmachine_decision_core:do_log(RD3)
             end;
         handled ->
-            nop
+            nop;
+        mochiweb_response ->
+            ok
     end.
 
 get_option(Option, Options) ->
