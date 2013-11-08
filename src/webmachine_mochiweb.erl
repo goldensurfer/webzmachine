@@ -131,7 +131,9 @@ loop(MochiReq, LoopOpts) ->
                     end
             end;
         handled ->
-            nop
+            nop;
+        mochiweb_response ->
+            ok
     end.
 
 get_option(Option, Options) ->
