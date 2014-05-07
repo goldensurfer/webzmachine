@@ -1,23 +1,8 @@
-ERL          ?= erl
-APP          := webzmachine
+PROJECT = webzmachine
 
-.PHONY: deps
+ERLC_OPTS = +debug_info +warn_export_all +warn_export_vars +warn_shadow_vars +warn_obsolete_guard
 
-all: deps
-	@(./rebar compile)
+PLT_APPS = hipe sasl mnesia crypto compiler syntax_tools
+DIALYZER_OPTS = -Werror_handling -Wrace_conditions -Wunmatched_returns | fgrep -v -f ./dialyzer.ignore-warning
 
-deps:
-	@(./rebar get-deps)
-
-clean:
-	@(./rebar clean)
-
-distclean: clean
-	@(./rebar delete-deps)
-
-edoc:
-	@$(ERL) -noshell -run edoc_run application '$(APP)' '"."' '[{preprocess, true},{includes, ["."]}]'
-
-test: all
-	@(./rebar skip_deps=true eunit)
-
+include erlang.mk
